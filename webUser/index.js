@@ -20,6 +20,7 @@ http.createServer((req, res) => {
         <ul>
             <li>Id:${user.Id}</li>
             <li>Email:${user.Email}</li>
+            <li>Host:${user.Host}</li>
         </ul>
     </body>
 </html>

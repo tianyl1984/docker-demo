@@ -1,4 +1,5 @@
 const http = require('http');
+const os = require('os');
 
 const port = 8080;
 http.createServer((req, res) => {
@@ -6,6 +7,6 @@ http.createServer((req, res) => {
     const email = `U${id}@langlib.com`;
     console.log(`request:${req.url}`);
     res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end(JSON.stringify({ Id: id, Email: email }));
+    res.end(JSON.stringify({ Id: id, Email: email,Host: os.hostname() }));
 }).listen(port);
 console.log(`listen on ${port}`);
