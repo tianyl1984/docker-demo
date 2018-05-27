@@ -1,6 +1,6 @@
 
 构建镜像命令：
-docker build -f Dockerfile.user -t user:v1 .
+docker build -f Dockerfile.svcuser -t user:v1 .
 
 启动registry服务：
 docker pull registry:2
@@ -59,8 +59,12 @@ docker node rm nodeid
 提升node为manager
 docker node promote nodeid
 
+网络管理
+docker network ls
+docker network create -d overlay user_net
+
 创建服务
-docker service create --replicas 2 -p 80:80 --name user --network=user_net 192.168.64.1:5000/user:v1
+docker service create --replicas 2 -p 8080:8080 --name user --network=user_net 192.168.64.1:5000/user:v1
 
 查看服务
 docker service ls
@@ -70,5 +74,24 @@ docker service ps nginx
 
 删除服务
 docker service rm nginx
+
+
+调整服务节点数
+docker service update --replicas 3 user
+
+服务升级
+docker service update --image 192.168.64.1:5000/webuser:v2 --update-delay 10s  webuser
+
+
+
+
+
+
+
+
+
+
+
+
 
 

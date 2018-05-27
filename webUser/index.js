@@ -1,9 +1,10 @@
 const http = require('http');
+const os = require('os');
 
 const port = 3000;
 http.createServer((req, res) => {
     const id = parseInt(Math.random() * 10000000, 10);
-    http.get(`http://127.0.0.1:8080/user/${id}`, response => {
+    http.get(`http://user:8080/user/${id}`, response => {
         const body = [];
         response.on('data', chunk => {
             body.push(chunk);
@@ -20,7 +21,8 @@ http.createServer((req, res) => {
         <ul>
             <li>Id:${user.Id}</li>
             <li>Email:${user.Email}</li>
-            <li>Host:${user.Host}</li>
+            <li>UserHost:${user.Host}</li>
+            <li>WebHost:${os.hostname()}</li>
         </ul>
     </body>
 </html>

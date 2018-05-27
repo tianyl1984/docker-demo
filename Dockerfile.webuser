@@ -1,0 +1,15 @@
+FROM node
+
+#创建目录
+RUN mkdir -p /app/user
+#复制源码到工作目录
+COPY ./webUser/* /app/user/
+#设置工作目录
+WORKDIR /app/user
+RUN npm install
+
+#声明暴露container端口
+EXPOSE 3000
+
+#执行命令
+CMD ["npm", "start"]
