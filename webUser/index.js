@@ -4,7 +4,7 @@ const os = require('os');
 const port = 3000;
 http.createServer((req, res) => {
     const id = parseInt(Math.random() * 10000000, 10);
-    http.get(`http://user:8080/user/${id}`, response => {
+    http.get(`http://svcuser:8080/user/${id}`, response => {
         const body = [];
         response.on('data', chunk => {
             body.push(chunk);

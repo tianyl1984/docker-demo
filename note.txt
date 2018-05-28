@@ -1,6 +1,6 @@
 
 构建镜像命令：
-docker build -f Dockerfile.svcuser -t user:v1 .
+docker build -f Dockerfile.svcuser -t 192.168.64.1:5000/svcuser:v1 .
 
 启动registry服务：
 docker pull registry:2
@@ -64,7 +64,7 @@ docker network ls
 docker network create -d overlay user_net
 
 创建服务
-docker service create --replicas 2 -p 8080:8080 --name user --network=user_net 192.168.64.1:5000/user:v1
+docker service create --replicas 2 -p 8080:8080 --name svcuser --network=user_net 192.168.64.1:5000/svcuser:v1
 
 查看服务
 docker service ls
@@ -74,7 +74,6 @@ docker service ps nginx
 
 删除服务
 docker service rm nginx
-
 
 调整服务节点数
 docker service update --replicas 3 user
