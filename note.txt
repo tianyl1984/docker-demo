@@ -6,7 +6,7 @@ docker build -f Dockerfile.svcuser -t 192.168.64.1:5000/svcuser:v1 .
 docker pull registry:2
 docker run -d -p 5000:5000 --name registry -v /mnt/docker/data/registry:/var/lib/registry registry:2
 docker tag user:v1 localhost:5000/user:v1
-docker push 192.168.64.1:5000/user
+docker push 192.168.64.1:5000/svcuser
 
 查询registry中的镜像
 curl http://192.168.64.1:5000/v2/user/tags/list
@@ -77,20 +77,32 @@ docker service rm nginx
 
 调整服务节点数
 docker service update --replicas 3 user
+docker service scale user=3
 
 服务升级
 docker service update --image 192.168.64.1:5000/webuser:v2 --update-delay 10s  webuser
 
+compose文件方式
+查看：
+docker stack ls
+docker stack ps user
+docker stack service user
+
+启动：
+docker stack deploy -c docker-user.yaml user
+删除：
+docker stack rm user
 
 
-
-
-
-
-
-
-
-
-
+配置
+查看
+docker config ls
+创建
+docker config myconfig config.json
+使用
+--config source=myconfig,target=/etc/nginx/conf.d/site.conf,mode=0440
+docker service create --replicas 2 --config source=myconfig,target=/app/user/config.json,mode=0440 --name svcuser --network=user_net 192.168.64.1:5000/svcuser:v1
+更新
+docker service update --config-rm myconfig --config-add source=myconfig,target=/app/user/config.json,mode=0440 svcuser
 
 
