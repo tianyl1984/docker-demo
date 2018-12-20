@@ -2,20 +2,22 @@ version: "3"
 
 services:
   svcuser:
-    image: 192.168.64.1:5000/svcuser:v1
+    image: registry.cn-beijing.aliyuncs.com/tianyl/svcuser:v1
     networks:
       - user_net2
     deploy:
       mode: replicated
       replicas: 3
   webuser:
-    image: 192.168.64.1:5000/webuser:v1
+    image: registry.cn-beijing.aliyuncs.com/tianyl/webuser:v1
     ports:
       - 3000:3000
+    environment:
+      - USER_HOST=svcuser
     networks:
       - user_net2
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 2
 networks:
   user_net2:

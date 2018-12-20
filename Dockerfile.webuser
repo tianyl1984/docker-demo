@@ -1,4 +1,4 @@
-FROM node
+FROM node:8.14.0-alpine
 
 #创建目录
 RUN mkdir -p /app/user

@@ -1,6 +1,6 @@
 
 构建镜像命令：
-docker build -f Dockerfile.svcuser -t 192.168.64.1:5000/svcuser:v1 .
+docker build -f Dockerfile.svcuser -t 192.168.2.2:5000/svcuser:v1 .
 
 启动registry服务：
 docker pull registry:2
